@@ -10,10 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import io.github.NadhifRadityo.Objects.Canvas.CanvasPanel;
+import io.github.NadhifRadityo.Objects.Canvas.Managers.GraphicModifierManager;
 import io.github.NadhifRadityo.Objects.Canvas.RenderHints.AntiAlias;
 import io.github.NadhifRadityo.Objects.Canvas.Shapes.Circle;
+import io.github.NadhifRadityo.Objects.Canvas.Shapes.Ellipse;
 import io.github.NadhifRadityo.Objects.Canvas.Shapes.Line;
-import io.github.NadhifRadityo.Objects.Canvas.Shapes.Oval;
 import io.github.NadhifRadityo.Objects.Canvas.Shapes.Point;
 import io.github.NadhifRadityo.Objects.Utilizations.DimensionUtils;
 
@@ -39,7 +40,9 @@ public class CircleFellowship extends JFrame {
 		canvasPanel.setPreferredSize(DimensionUtils.getMaxDimension());
 		add(canvasPanel);
 		
-		canvasPanel.addSprite(new AntiAlias(true), -1);
+		GraphicModifierManager graphicManager = new GraphicModifierManager(true, -1);
+		graphicManager.addModifier(new AntiAlias(true));
+		canvasPanel.addManager(graphicManager);
 		drawInsideIntersection(new Circle(200, 200, 150, false), new Circle(400, 200, 75, true));
 	}
 	
@@ -109,7 +112,7 @@ public class CircleFellowship extends JFrame {
 		canvasPanel.addSprite(fLine4);
 	}
 	
-	public Point[] checkIntersects(Oval c1, Oval c2, int numPoints) {
+	public Point[] checkIntersects(Ellipse c1, Ellipse c2, int numPoints) {
 		List<Point> points = new ArrayList<>();
 		Point[] p1s = c1.getPoints(numPoints);
 		Point[] p2s = c2.getPoints(numPoints);
